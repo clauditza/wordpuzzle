@@ -13,7 +13,7 @@
     <title>Word Puzzle by clauditza</title>
   </head>
 
-  <body>
+  <body>      
     <div id="container">
       <div class="inner">
 
@@ -21,18 +21,54 @@
           <h1>Word Puzzle</h1>
           <h2>Find the hidden words</h2>
         </header>
+ 
+		<table>
+          <tr>
+            <td></td>
+            <td colspan="2" style="text-align: center;">
+              <img id="imgHeader" src="img/WordFinder - Header.png" width="0">
+           </td>
+            <td></td>
+          </tr>
+                <tr>
+            <td style="text-align: right; vertical-align: bottom">
+              <div id="divTimer"></div>			
+                    </td>
+                    <td colspan="2">
+                        <table id="tblGrid"></table>          
+                    </td>
+            <td width="150">
+              <ul id="lstWords"></ul>
+            </td>
+                </tr>
+          <tr>
+            <td></td>
+            <td>
+              Level: <span id="level">0</span>
+            </td>
+            <td style="text-align: right">
+              <div>Score: <span id="score">0</span>/<span id="bestScore">0</span></div>        
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="2" style="text-align: center">
+              <br/>
+              <div id="divResults" class="msgResult"></div>
+            </td>
+            <td></td>
+          </tr>        
+        </table>
+  
+        <audio id="audioFail" preload="auto" autobuffer> 
+            <source src="sounds/fail-trombone-01.ogg" />
+        </audio>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/clauditza/wordpuzzle/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/clauditza/wordpuzzle/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/clauditza/wordpuzzle" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+        <audio id="audioSuccess" preload="auto" autobuffer> 
+            <source src="sounds/horse.ogg" />
+        </audio>
 
-        <hr>
-
-        <section id="main_content">
-          <p>My first game.</p>
-        </section>
 
         <footer>
           Word Puzzle is maintained by <a href="https://github.com/clauditza">clauditza</a><br>
