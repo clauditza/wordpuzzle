@@ -110,7 +110,7 @@ function initGrid()
     // set level   
     $('#level').text(level);
 
-    // calculate time for the current value and set timer accordingly
+    // calculate time for the current grid and set timer accordingly
     time = words.length * (LEVEL_MAX - level);
     timerInterval = window.setInterval(function() { updateTime(); }, 1000);   
  
@@ -260,7 +260,14 @@ function letterSelection(cell)
             }
             else if (Math.abs(diffCrt) == Math.abs(diffPrev)) // go back
             {
-                crtSelectedCells[crtSelectedCells.length - 1].style.backgroundColor = '';
+                if (selectedCells.indexOf(crtSelectedCells[crtSelectedCells.length - 1]) < 0)
+                {
+                    crtSelectedCells[crtSelectedCells.length - 1].style.backgroundColor = '';
+                }
+                else
+                {
+                    crtSelectedCells[crtSelectedCells.length - 1].style.backgroundColor = validColor;
+                }
                 crtSelectedCells.splice(crtSelectedCells.length - 1, 1);
                 
                 crtWord = crtWord.slice(0, crtSelectedCells.length);	
@@ -307,7 +314,7 @@ function pickWords(dictionary, count)
 function generateTable()
 {	
     // get number of words per grid
-    var wordCount = GRID_SIZE_MIN + level;
+    var wordCount = Math.max(GRID_SIZE_MIN, getRandom(10));
     
     switch(gLanguage.toUpperCase())
     {
