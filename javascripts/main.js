@@ -301,9 +301,8 @@ function pickWords(dictionary, count)
 function generateTable()
 {	
     // get number of words per grid
-    var wordCount = Math.max(GRID_SIZE_MIN, parseInt(Math.random() * 10) % 10);
+    var wordCount = GRID_SIZE_MIN + level;
     
-
     switch(gLanguage.toUpperCase())
     {
         case 'EN':
@@ -322,12 +321,11 @@ function generateTable()
     }
     
     // set gridSize
-    var gridSize = 0;
+    var gridSize = wordCount + GRID_SIZE_FACTOR;
     for (var i = 0; i < words.length; i++)
     {
         gridSize = Math.max(words[i].length, gridSize);
     }
-    gridSize += GRID_SIZE_FACTOR;
     
     var matrixLetters = new Array();
     for(var i = 0; i < gridSize; i++)
@@ -406,5 +404,5 @@ function generateTable()
 
 function getRandom(max)
 {
-    return Math.floor(Math.random() * max);
+    return max  > 0 ? (parseInt(Math.random() * max) % max) : 0;
 }
