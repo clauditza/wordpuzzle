@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <script type="text/javascript" src="javascripts/jquery-1.9.1.min.js"></script>    
+    <script type="text/javascript" src="javascripts/cookie.js"></script>
+    <script type="text/javascript" src="javascripts/dictionary.js"></script>
+    <script type="text/javascript" src="javascripts/main.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Word Puzzle by clauditza</title>
+        
+    <script type="text/javascript">
+            
+        $(document).ready(function() {
+            var urlParameters = getUrlParameters();            
+            var language = urlParameters['lang'];
+            
+            generateTable(language);  
+            initGrid();    
+        });  
+        
+    </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-12121768-11', 'nitrousbox.com');
+      ga('send', 'pageview');
+
+    </script>        
+  </head>
+  <body>      
+    <div id="container">
+      <div class="inner">
+          <center>
+              <table>
+                  <tr>
+                      <td width="150"></td>
+                      <td colspan="2" style="text-align: center;">
+                        <img id="imgHeader" src="images/header.png" width="0">
+                      </td>
+                      <td width="150"></td>
+                  </tr>
+                  <tr>
+                      <td style="vertical-align: bottom">
+                          <div id="divTimer" style="float: right">&nbsp;</div>			
+                      </td>
+                      <td colspan="2">
+                          <table id="tblGrid"></table>
+                      </td>
+                      <td>
+                        <ul id="lstWords"></ul>
+                    </td>
+                </tr>
+              <tr>
+                <td></td>
+                <td>
+                  Level: <span id="level">0</span>
+                </td>
+                <td style="text-align: right">
+                  <div>Score: <span id="score">0</span>/<span id="bestScore">0</span></div>        
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td colspan="2" style="text-align: center">
+                  <br/>
+                  <div id="divResults" class="msgResult"></div>
+                </td>
+                <td></td>
+              </tr>        
+            </table>
+          </center>
+  
+        <audio id="audioFail" preload="auto" autobuffer> 
+            <source src="sounds/fail-trombone-01.ogg" />
+        </audio>
+
+        <audio id="audioSuccess" preload="auto" autobuffer> 
+            <source src="sounds/horse.ogg" />
+        </audio>
+
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <footer>
+            <center>Word Puzzle is created by <a href="http://about.me/clauditza">clauditza</a><br/></center>      
+        </footer>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
