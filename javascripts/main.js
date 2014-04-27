@@ -54,6 +54,18 @@ function setLanguage(language)
     gLanguage = language;
 }
 
+function readCookies()
+{
+     // read score   
+    bestScore = getCookieValue(COOKIE_SCORE, 0);
+
+    // read level
+    level = getCookieValue(COOKIE_LEVEL, 0);
+    if (level == LEVEL_MAX)
+    {
+        level = 0;
+    }    
+}
 function getCookieValue(cookieName, defaultValue)
 {
     var result = defaultValue;
@@ -93,15 +105,9 @@ function initGrid()
         });   
 
     // set score   
-    bestScore = getCookieValue(COOKIE_SCORE, 0);
     $('#bestScore').text(bestScore);
 
-    // set level
-    level = getCookieValue(COOKIE_LEVEL, 0);
-    if (level == LEVEL_MAX)
-    {
-        level = 0;
-    }    
+    // set level   
     $('#level').text(level);
 
     // calculate time for the current value and set timer accordingly
