@@ -268,18 +268,23 @@ function letterSelection(cell)
 
 function pickWords(dictionary, count)
 {
-    var result = new Array();
+    var result = new Array();    
+    var tmpWord = '';
     
     var selectedWords = new Array();
     for(var i = 0; i < count; i++)
     {
-        var crtIndex = getRandom(dictionary.length);
-        while(result.indexOf(dictionary[crtIndex]) >= 0)
-        {
-            crtIndex = getRandom(dictionary.length);         
-            console('pickWords');
+        var position = getRandom(dictionary.length);
+        while(true)
+        {            
+            tmpWord = dictionary[position].toUpperCase();
+            if (result.indexOf(tmpWord) < 0)
+            {
+                break;
+            }
+           position = getRandom(dictionary.length);        
         }
-        result.push(dictionary[crtIndex].toUpperCase());
+        result.push(tmpWord);
     }
     
     return result;
@@ -294,7 +299,7 @@ function generateTable(language)
     switch(language.toUpperCase())
     {
         case 'EN':
-            words = pickWords(dictionaryRO, wordCount);
+            words = pickWords(dictionaryEN, wordCount);
             break;
         case 'RO':
             words = pickWords(dictionaryRO, wordCount);
