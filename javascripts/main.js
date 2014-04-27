@@ -19,6 +19,7 @@ var score = 0;
 var bestScore = 0;
 var heightTimeUnit = 0;
 var level = 0;
+var gLanguage = DEFAULT_LANGUAGE;
 
 var timerInterval;
 
@@ -48,13 +49,19 @@ function getUrlParameters()
     return result;
 }
 
+function setLanguage(language)
+{
+    gLanguage = language;
+}
+
 function getCookieValue(cookieName, defaultValue)
 {
     var result = defaultValue;
     
-    if (docCookies.hasItem(cookieName))
+    var cookieNameByLanguage = cookieName + '_' + gLanguage;
+    if (docCookies.hasItem(cookieNameByLanguage))
     {
-        result = docCookies.getItem(cookieName);
+        result = docCookies.getItem(cookieNameByLanguage);
     }
     
     return result;
@@ -62,7 +69,8 @@ function getCookieValue(cookieName, defaultValue)
 
 function setCookieValue(cookieName, cookieValue)
 {
-    docCookies.setItem(cookieName, cookieValue, Infinity);
+    var cookieNameByLanguage = cookieName + '_' + gLanguage;
+    docCookies.setItem(cookieNameByLanguage, cookieValue, Infinity);
 }
 
 function initGrid()
@@ -290,13 +298,13 @@ function pickWords(dictionary, count)
     return result;
 }
 
-function generateTable(language)
+function generateTable()
 {	
     // get number of words per grid
     var wordCount = Math.max(GRID_SIZE_MIN, parseInt(Math.random() * 10) % 10);
-    var gridSize = wordCount + 5;
+    
 
-    switch(language.toUpperCase())
+    switch(gLanguage.toUpperCase())
     {
         case 'EN':
             words = pickWords(dictionaryEN, wordCount);
@@ -312,6 +320,14 @@ function generateTable(language)
             words = pickWords(dictionaryEN, wordCount);
             break;
     }
+    
+    // set gridSize
+    var gridSize = 0;
+    for (var i = 0; i < words.length; i++)
+    {
+        gridSize = Math.max(words[i].length, gridSize);
+    }
+    gridSize += GRID_SIZE_FACTOR;
     
     var matrixLetters = new Array();
     for(var i = 0; i < gridSize; i++)
@@ -337,7 +353,6 @@ function generateTable(language)
         var matrixLine = getRandom(gridSize);
         while(true)
         {
-            console.log('check if word can be added');
             var isEmpty = true;        
             for (var k = 0; k < word.length; k++)
             {

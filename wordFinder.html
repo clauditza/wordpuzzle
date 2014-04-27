@@ -15,71 +15,69 @@
     <![endif]-->
     <title>Word Puzzle by clauditza</title>
         
-    <script type="text/javascript">
-            
+    <script type="text/javascript">            
         $(document).ready(function() {
             var urlParameters = getUrlParameters();            
             var language = urlParameters['lang'];
             
-            generateTable(language);  
+            setLanguage(language);
+            generateTable();  
             initGrid();    
-        });  
+        });          
+    </script>          
+    </head>    
+    <body>      
+        <div class="languageBar">
+            <span><a href="wordFinder.html?lang=ro"><img src="images/Flag-RO.png" alt="Româna" title="Româna" /></a></span>
+            <span><a href="wordFinder.html?lang=en"><img src="images/Flag-UK.png" alt="English" title="English" /></a></span>   
+            <span><a href="wordFinder.html?lang=fr"><img src="images/Flag-FR.png" alt="Français" title="Français" /></a></span>  
+        </div>
         
-    </script>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        <center>
+        <table>
+          <tr>
+              <td colspan="4">
+              </td>
+          </tr>
+          <tr>
+              <td width="150"></td>
+              <td colspan="2" style="text-align: center;">
+                <img id="imgHeader" src="images/header.png" width="0">
+              </td>
+              <td width="150"></td>
+          </tr>
+          <tr>
+              <td style="vertical-align: bottom">
+                  <div id="divTimer" style="float: right">&nbsp;</div>			
+              </td>
+              <td colspan="2">
+                  <table id="tblGrid"></table>
+              </td>
+              <td>
+                <ul id="lstWords"></ul>
+            </td>
+        </tr>
+        <tr>
+        <td></td>
+        <td>
+          Level: <span id="level">0</span>
+        </td>
+        <td style="text-align: right">
+          <div>Score: <span id="score">0</span>/<span id="bestScore">0</span></div>        
+        </td>
+        <td></td>
+        </tr>
+        <tr>
+        <td></td>
+        <td colspan="2" style="text-align: center">
+          <br/>
+          <div id="divResults" class="msgResult"></div>
+        </td>
+        <td></td>
+        </tr>        
+        </table>
+        </center>
 
-        ga('create', 'UA-12121768-11', 'clauditza.github.io');
-        ga('send', 'pageview');
-    </script>              
-  </head>
-  <body>      
-    <div id="container">
-      <div class="inner">
-          <center>
-              <table>
-                  <tr>
-                      <td width="150"></td>
-                      <td colspan="2" style="text-align: center;">
-                        <img id="imgHeader" src="images/header.png" width="0">
-                      </td>
-                      <td width="150"></td>
-                  </tr>
-                  <tr>
-                      <td style="vertical-align: bottom">
-                          <div id="divTimer" style="float: right">&nbsp;</div>			
-                      </td>
-                      <td colspan="2">
-                          <table id="tblGrid"></table>
-                      </td>
-                      <td>
-                        <ul id="lstWords"></ul>
-                    </td>
-                </tr>
-              <tr>
-                <td></td>
-                <td>
-                  Level: <span id="level">0</span>
-                </td>
-                <td style="text-align: right">
-                  <div>Score: <span id="score">0</span>/<span id="bestScore">0</span></div>        
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td colspan="2" style="text-align: center">
-                  <br/>
-                  <div id="divResults" class="msgResult"></div>
-                </td>
-                <td></td>
-              </tr>        
-            </table>
-          </center>
-  
         <audio id="audioFail" preload="auto" autobuffer> 
             <source src="sounds/fail-trombone-01.ogg" />
         </audio>
@@ -88,14 +86,9 @@
             <source src="sounds/horse.ogg" />
         </audio>
 
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <footer>
             <center>Word Puzzle is created by <a href="http://about.me/clauditza">clauditza</a><br/></center>      
         </footer>
 
-
-
-      </div>
-    </div>
-  </body>
+    </body>
 </html>

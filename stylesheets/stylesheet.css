@@ -11,6 +11,10 @@ footer {
     text-align: center;
     font-size: 0.8em;
     color: #606060;
+    position:fixed;
+    bottom:10px;
+    left:0px;
+    right:0px;    
 }
 
 .welcome {
@@ -62,4 +66,13 @@ li {
     font-size: 16px;
     font-weight: bold;
     color: #ff0000;
+}
+
+.languageBar {
+    width: 100%;
+    text-align: right;
+}
+
+.languageBar img {
+    height: 15px;
 }
