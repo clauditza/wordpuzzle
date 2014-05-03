@@ -1,10 +1,12 @@
 body {
     background-color: #f9f9f9;  
-    font-family: sans-serif;
+    font-family: Verdana, sans-serif;
+    color: #303030;
 }
 
 header {
     text-align: center;
+    font-size: 24px;
 }
 
 footer {
@@ -18,13 +20,13 @@ footer {
 }
 
 .welcome {
-    font-size: 20px;
+    font-size: 16px;
     text-align: center;
     min-height: 400px;        
 }
 
 .welcome img {
-    height: 45px;
+    height: 20px;
 }
 
 .welcome span {
@@ -44,7 +46,7 @@ footer {
 }
 
 #tblGrid td {
-    font-family: Verdana, sans-serif;
+    
     font-size: 18px;
     width: 30px;
     height: 30px;
@@ -58,7 +60,20 @@ footer {
 
 li {
     list-style-type: none;
-    padding: 3px;
+    padding: 4px;
+}
+
+li > a {
+    text-decoration: none;
+    color: #333333;
+}
+
+li > a:hover {
+    color: #3366cc;
+}
+
+.wordFound {
+    background-color: #D1FFB3;
 }
 
 .msgResult
@@ -71,8 +86,12 @@ li {
 .languageBar {
     width: 100%;
     text-align: right;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .languageBar img {
     height: 15px;
 }
+

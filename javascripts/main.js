@@ -3,8 +3,9 @@ var COOKIE_LEVEL = 'wordPuzzleLevel';
 var DEFAULT_LANGUAGE = 'en';
 
 var GRID_SIZE_MIN = 5;
+var GRID_SIZE_MAX = 16;
 var GRID_SIZE_FACTOR = 5;
-var LEVEL_MAX = 14;
+var LEVEL_MAX = 20;
 
 var validColor = '#89E894';
 var highlightColor = '#FFEF00'; 
@@ -51,7 +52,14 @@ function getUrlParameters()
 
 function setLanguage(language)
 {
-    gLanguage = language;
+    if (!language)
+    {
+        gLanguage = DEFAULT_LANGUAGE;
+    }
+    else
+    {
+        gLanguage = language;
+    }
 }
 
 function readCookies()
@@ -109,12 +117,15 @@ function initGrid()
 
     // set level   
     $('#level').text(level);
-
-    // calculate time for the current grid and set timer accordingly
-    time = words.length * (LEVEL_MAX - level);
-    timerInterval = window.setInterval(function() { updateTime(); }, 1000);   
- 
+    
     $('#imgHeader').css('width', $('#tblGrid').css('width'));
+
+    // calculate time for the current grid 
+    time = words.length * (LEVEL_MAX - level);
+    console.log(time);
+    timerInterval = window.setInterval(function() { updateTime(); }, 1000);   
+
+    // set timer
     $('#divTimer').css('height',  $('#tblGrid').css('height'));
     heightTimeUnit = parseInt($('#tblGrid').css('height').replace('px', '')) / time;    
 }
@@ -216,7 +227,12 @@ function endSelection()
 
         // mark word as selected
         words.splice(crtIndex, 1);
-        $("li:contains('" + crtWord + "')").css('text-decoration', 'line-through');
+        
+        $('li').filter(function(){ 
+                    return $(this).text() === crtWord;
+                })        
+                .addClass('wordFound');        
+        
         for (var i = 0; i < crtSelectedCells.length; i++)
         {
             selectedCells.push(crtSelectedCells[i]);
@@ -299,7 +315,7 @@ function pickWords(dictionary, count)
         while(true)
         {            
             tmpWord = dictionary[position].toUpperCase();
-            if (result.indexOf(tmpWord) < 0)
+            if (tmpWord.length <= GRID_SIZE_MAX && result.indexOf(tmpWord) < 0 && !isSubword(tmpWord, result))
             {
                 break;
             }
@@ -311,6 +327,33 @@ function pickWords(dictionary, count)
     return result;
 }
 
+function isSubword(word, wordList)
+{
+    var result = false;
+    
+    for (var i = 0; i < wordList.length; i++)
+    {
+        if (wordList[i].indexOf(word) > 0)
+        {
+            result = true;
+            break;
+        }            
+    }
+    
+    return result;
+}
+
+function getLongestWord(dictionary)
+{
+    var length = 0;
+    for (var i = 0; i < dictionary.length; i++)
+    {
+        length = Math.max(length, dictionary[i].length);
+    }
+    
+    return length;
+}
+
 function generateTable()
 {	
     // get number of words per grid
@@ -319,7 +362,7 @@ function generateTable()
     switch(gLanguage.toUpperCase())
     {
         case 'EN':
-            words = pickWords(dictionaryEN, wordCount);
+            words = pickWords(dictionaryEN, wordCount);        
             break;
         case 'RO':
             words = pickWords(dictionaryRO, wordCount);
@@ -334,12 +377,17 @@ function generateTable()
     }
     
     // set gridSize
-    var gridSize = wordCount + GRID_SIZE_FACTOR;
+    var gridSize = GRID_SIZE_MIN;
     for (var i = 0; i < words.length; i++)
     {
         gridSize = Math.max(words[i].length, gridSize);
     }
+    if (gridSize <= GRID_SIZE_MAX)
+    {
+        gridSize = Math.min(gridSize + GRID_SIZE_FACTOR, GRID_SIZE_MAX);
+    }            
     
+    // init grid
     var matrixLetters = new Array();
     for(var i = 0; i < gridSize; i++)
     {
@@ -350,12 +398,27 @@ function generateTable()
         }
         matrixLetters.push(line);
     }
-
-    var rows = new Array();
+    
+    // init word list on the right of the grid
     for (var i = 0; i < words.length; i++)
     {		
-        $('#lstWords').append('<li>' + words[i].toUpperCase() + '</li>');
-
+        if (words[i])
+        {
+            if (gLanguage == 'ro')
+            {
+                $('#lstWords').append('<li><a href="http://dexonline.ro/definitie/' + words[i] + '" target="_blank">' + words[i].toUpperCase() + '</a></li>');
+            }
+            else
+            {
+                $('#lstWords').append('<li>' + words[i].toUpperCase() + '</li>');
+            }
+        }
+    }
+    
+    // insert words into the grid
+    var rows = new Array();
+    for (var i = 0; i < words.length; i++)
+    {	
         var row = '';	
         var word = words[i];
         var isHorizontal = getRandom(2) % 2;
@@ -378,8 +441,9 @@ function generateTable()
             {
                 break;
             }
+            isHorizontal = getRandom(2) % 2;
             startPos = getRandom(gridSize - word.length);  
-            matrixLine = getRandom(gridSize);
+            matrixLine = getRandom(gridSize);            
         }
             
         for (var  k = 0; k < word.length; k++)
@@ -395,6 +459,7 @@ function generateTable()
         }      
     }
 
+    // fill grid
     for (var i = 0; i < gridSize; i++)
     {
         var row = '<tr>';
